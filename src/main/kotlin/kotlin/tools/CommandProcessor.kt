@@ -24,7 +24,7 @@ class CommandProcessor: KoinComponent {
 
         var command = ""
         var commandsList = ServerCommandsData()
-        var sendCommandsData: ClientCommandsData? = ClientCommandsData()
+        var sendCommandsData: ClientCommandsData = ClientCommandsData()
         val dataProcessor = DataProcessing()
 
         val port = 6789
@@ -70,7 +70,7 @@ class CommandProcessor: KoinComponent {
 
                     sendCommandsData.setName(command)
 
-                    xml = mapper.writeValueAsString(sendCommandsData)
+                    xml = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(sendCommandsData)
 
                     sendingDataBuffer = xml.toByteArray()
                     sendingPacket = DatagramPacket(sendingDataBuffer, sendingDataBuffer.size, host, port)
